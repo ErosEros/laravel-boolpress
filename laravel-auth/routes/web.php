@@ -13,20 +13,24 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('guests.home');
-});
+// Route::get('/', function () {
+//     return view('guests.home');
+// });
 
 Auth::routes();
 
-// Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', function () {
+    return view("guests.home");
+})->name('index');
+
+
 Route::middleware('auth')
   ->namespace('admin')
   ->name('admin')
   ->prefix('admin')
   ->group(function () {
-        Route::get('/', 'HomeController@index')
-        ->name('home');
+        Route::get('/', 'HomeController@index')->name('index');
+        Route::resource('posts', 'PostController');
     });
 
     Auth::routes();
